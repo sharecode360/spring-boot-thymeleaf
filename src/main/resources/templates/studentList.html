@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+    <script type="text/javascript" src="#" th:src="@{/js/student.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.css}" />
+</head>
+<body>
+    <div class="container py-4">
+        <form action="#" th:action="@{/student/new}" method="get">
+            <p><input type="submit" value="学生を追加する" /></p>
+        </form>
+        <table class="table table-striped py-4">
+            <thead class="thead-dark">
+            <tr>
+                <td><label th:text="#{title.id}">ID</label></td>
+                <td><label th:text="#{title.stuName}">名前</label></td>
+                <td><label th:text="#{title.sex}">性別</label></td>
+                <td><label th:text="#{title.age}">年齢</label></td>
+                <td colspan="2"></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="stu : ${studentForms}">
+                <td th:text="${stu.id}"></td>
+                <td th:text="${stu.stuName}"></td>
+                <td>
+                    <span th:text="#{title.sex.male}" th:if="${stu.sex eq 'male'}"></span>
+                    <span th:text="#{title.sex.female}" th:if="${stu.sex eq 'female'}"></span>
+                </td>
+                <td th:text="${stu.age}"></td>
+                <td><a href="#" th:href="@{/student/{stuId}(stuId=${stu.id})}">更新</a></td>
+                <td>
+                    <form id="frm_student_list_delete" action="#" th:action="@{/student/{stuId}(stuId=${stu.id})}" method="post">
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        <a class="link_student_list_delete" href="#">削除</a>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

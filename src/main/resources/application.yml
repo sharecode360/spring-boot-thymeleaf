@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.56.10/testdb?serverTimezone=JST
+    username: tom
+    password: tom
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  messages:
+    basename: i18n/messages
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

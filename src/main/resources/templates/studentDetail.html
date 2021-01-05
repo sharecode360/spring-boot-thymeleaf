@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.css}" />
+</head>
+<body>
+    <div class="container py-4">
+        <form action="#" th:action="@{/student}" method="get">
+            <input type="submit" value="一覧に戻る" />
+        </form>
+        <form class="py-4" action="#" th:action="@{/student}" method="post" th:object="${studentForm}">
+            <div class="form-group col-3">
+                <div th:if="${studentForm.id ne null}">
+                    <label th:text="#{title.id}"></label>
+                    <span class="form-control" th:text="*{id}"></span>
+                </div>
+                <input type="hidden" name="_method" value="PUT" th:if="${id ne null}" />
+                <input type="hidden" th:field="*{id}"/>
+            </div>
+            <div class="form-group col-3">
+                <label for="stuName" th:text="#{title.stuName}">名前:</label>
+                <input class="form-control" type="text" th:field="*{stuName}" />
+                <span th:if="${#fields.hasErrors('stuName')}" th:errors="*{stuName}" class="text-danger"></span>
+            </div>
+            <div class="form-group col-3">
+                <label th:text="#{title.sex}">性別：</label>
+                <div class="form-control">
+                    <label for="male" th:text="#{title.sex.male}">男性</label>
+                    <input type="radio" id="male" name="sex" value="male" th:checked="*{sex eq 'male' || sex eq null}" />
+                    <label for="female" th:text="#{title.sex.female}">女性</label>
+                    <input type="radio" id="female" name="sex" value="female" th:checked="*{sex eq 'female'}" />
+                </div>
+            </div>
+            <div class="form-group col-3">
+                <label for="age" th:text="#{title.age}">年齢:</label>
+                <input class="form-control" type="text" th:field="*{age}" />
+                <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="text-danger"></span>
+            </div>
+            <div class="form-group col-3">
+                <input type="submit" value="保存" th:value="${studentForm.id eq null ? '保存' : '更新'}" />
+            </div>
+        </form>
+    </div>
+</body>
+</html>
